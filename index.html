@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acompanhamento dos SPED's</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="top-frame">
+            <div class="page-title">
+                <h1>Acompanhamento dos SPED's</h1>
+            </div>
+            <div class="filter-section">
+                <div class="filter-label">Selecione a Unidade</div>
+                <div id="unidades-buttons" class="unidades-buttons"></div>
+            </div>
+        </div>
+
+        <div id="dashboards-container"></div>
+
+        <div class="footer">
+            <div class="status-message">
+                <span id="statusMessage" class="status-text">Carregando dados...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Detalhes -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Detalhes dos SPEDs</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-search-bar">
+                    <input type="text" id="modalSearchInput" placeholder="🔍 Pesquisar por cliente, grupo, gerente..." class="search-input">
+                    <button id="exportExcelBtn" class="export-btn">📎 Exportar Excel</button>
+                </div>
+                <div class="table-wrapper">
+                    <table id="modalTable">
+                        <thead>
+                            <tr>
+                                <th>ID Cliente</th>
+                                <th>Cliente</th>
+                                <th>Grupo</th>
+                                <th>Gerente</th>
+                                <th>Tributação</th>
+                                <th>Responsável</th>
+                                <th>Status</th>
+                                <th>Data Transmissão</th>
+                                <th>Coordenador(a)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="modalTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
+    <script src="static/app.js"></script>
+</body>
+</html>
