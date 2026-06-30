@@ -4,6 +4,7 @@ from pathlib import Path
 from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.table import Table, TableStyleInfo
+from datetime import datetime
 
 BASE_DIR = Path(__file__).parent.parent / 'data'
 ENTRADA = BASE_DIR / 'base'
@@ -100,3 +101,10 @@ ws.add_table(tabela)
 
 wb.save(nome_saida)
 print(f"Concluído! Arquivo salvo em: {nome_saida}")
+
+# Registrar data/hora da última atualização
+pasta_atualizacao = BASE_DIR / 'ultima_atualizacao'
+pasta_atualizacao.mkdir(parents=True, exist_ok=True)
+agora = datetime.now().strftime('%d/%m/%Y %H:%M')
+(pasta_atualizacao / 'ultima_atualizacao.txt').write_text(agora, encoding='utf-8')
+print(f"Última atualização registrada: {agora}")

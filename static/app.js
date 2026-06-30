@@ -2,6 +2,7 @@
 // CONFIG
 // ================================================
 const CAMINHO_ARQUIVO = 'data/base_formatada/Base.xlsx';
+const CAMINHO_ATUALIZACAO = 'data/ultima_atualizacao/ultima_atualizacao.txt';
 
 let dadosProcessados = null;
 let unidadeAtual = null;
@@ -103,19 +104,17 @@ function agruparPorDepartamento(dados) {
 // ================================================
 function calcularEvolucao(base, dias) {
     const total = base.length;
-    let pendente = total;
     const arr = [total]; // coluna Total
 
     dias.forEach(dia => {
-        const baixados = base.filter(r => {
+        const pendentes = base.filter(r => {
             const d = extrairData(r.DataAlteracaoEstagio);
-            return d && isMesmaData(d, dia);
+            return !d || d > dia;
         }).length;
-        pendente -= baixados;
-        arr.push(pendente);
+        arr.push(pendentes);
     });
 
-    return arr; // arr[0]=Total, arr[1]=após dia 1, arr[2]=após dia 2...
+    return arr; // arr[0]=Total, arr[1]=pendentes até dia 1, arr[2]=pendentes até dia 2...
 }
 
 // Retorna os registros ainda pendentes ao fim do dia informado
@@ -417,7 +416,19 @@ function exportToExcel() {
 // ================================================
 // INICIALIZAÇÃO
 // ================================================
+async function carregarUltimaAtualizacao() {
+    try {
+        const response = await fetch(CAMINHO_ATUALIZACAO);
+        if (!response.ok) return;
+        const texto = await response.text();
+        const el = document.getElementById('ultima-atualizacao');
+        if (el) el.textContent = 'Última atualização: ' + texto.trim();
+    } catch (_) {}
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
+    carregarUltimaAtualizacao();
+
     const dias = getDiasUteisJunho2026();
     const status = document.getElementById('statusMessage');
 
