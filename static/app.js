@@ -14,7 +14,7 @@ let currentModalData = [];
 function getDiasUteisJunho2026() {
     const dias = [];
     for (let i = 1; i <= 30; i++) {
-        const d = new Date(2026, 5, i); // mês 5 = junho
+        const d = new Date(2026, 6, i); // mês 5 = junho
         if (d.getDay() !== 0 && d.getDay() !== 6) dias.push(d);
     }
     return dias;
